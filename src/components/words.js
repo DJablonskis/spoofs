@@ -1,4 +1,11 @@
-export default function words({ spoof, symbols, total }) {
+import { useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
+import { MdContentCopy } from 'react-icons/md'
+
+export default function Words({ spoof, symbols, total }) {
+
+    const [copied, setCopied] = useState("")
 
     function generateSpoofs(word) {
         let versions = []
@@ -7,6 +14,7 @@ export default function words({ spoof, symbols, total }) {
 
         return versions
     }
+
 
     function replaceLetter(word, list, position = 0) {
 
@@ -25,5 +33,18 @@ export default function words({ spoof, symbols, total }) {
 
     }
 
-    return <div className="wordsContainer"><p>Total posible combinations: {total}</p>{generateSpoofs(spoof).map(w => <span key={w}>{w}</span>)}</div>
+    return <div>
+        <h3> {total} posible combination{total === 1 ? "" : "s"}:</h3>
+        <div className="wordsContainer">
+
+            {
+                generateSpoofs(spoof).map(w => (
+                    <span key={w} className="word">
+                        {w} <CopyToClipboard text={w} onCopy={() => setCopied(w)} ><MdContentCopy style={{ color: w === copied ? "red" : "#ffffff" }} /></CopyToClipboard>
+                    </span>)
+                )
+            }
+        </div>
+    </div>
+
 }

@@ -1,5 +1,5 @@
 import Letter from "./letter"
-export default ({ letters, selectedLetter, changeSelectedLetter, word }) => {
+export default function Letters({ letters, selectedLetter, changeSelectedLetter, word }) {
 
     let keys = Object.keys(letters)
     return (

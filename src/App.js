@@ -1,5 +1,5 @@
 import data from "./data.js"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Letters from "./components/letters"
 import Symbols from "./components/symbols"
 import Input from "./components/input"
@@ -17,17 +17,13 @@ function App() {
   }
 
   function updateInput(e) {
-    let value = e.target.value
-    const re = /^[a-z]+$/;
-    if (value === "" || re.test(value)) {
-      setWord(e.target.value)
+    let value = e.target.value.toLowerCase()
+    setWord(value);
+    if (!value.includes(selectedLetter)) {
+      setSelectedLetter("")
     }
 
   }
-
-  useEffect(() => {
-    !word.includes(selectedLetter) && setSelectedLetter("")
-  }, [word, selectedLetter])
 
   function toggleSymbol(letter, symbol) {
     setUsedSymbols(old => {
@@ -48,8 +44,8 @@ function App() {
   return (
     <div className="App">
       <h1>Unicode Spoofs Generator</h1>
-      <p>Type in the word or phrase you want to spoof and choose aditional symbols to generate posible permutations.</p>
-      <p>(Number of posible combinations grows very fast)</p>
+      <p>Type in the word you want to spoof and choose aditional symbols to generate posible permutations. </p>
+      <p>Only lower case symbols a-z are currently supported.</p>
       <Input
         onChange={updateInput}
         value={word}

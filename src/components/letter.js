@@ -1,4 +1,4 @@
-export default ({ index, selectedLetter, changeSelectedLetter, total, using }) => {
+export default function Letter({ index, selectedLetter, changeSelectedLetter, total, using }) {
     return (
         <div onClick={() => changeSelectedLetter(index)} className="letterBox">
             <span style={{ color: selectedLetter === index ? "red" : "black" }}>{index} </span>
